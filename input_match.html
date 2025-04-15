@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Match</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2ecc71;
+            --secondary-dark: #27ae60;
+            --dark: #2c3e50;
+            --dark-light: #34495e;
+            --light: #ecf0f1;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #1abc9c;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* Main container */
+        .container {
+            width: 95%;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: white;
+            box-shadow: 0 0 20px var(--shadow);
+            border-radius: var(--border-radius);
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark);
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--dark-light);
+            font-size: 1.1rem;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        /* Form styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        /* Submit button */
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Form row for columns */
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 5px 10px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        footer a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 15px;
+                width: 100%;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="match.php" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Matches
+        </a>
+        <h1>Add New Match</h1>
+        <p>Enter match details to create a new record</p>
+    </header>
+
+    <!-- Main content -->
+    <div class="container">
+        
+        <h2 class="form-subtitle">Complete the form below to add a new match to the database</h2>
+        
+        <form action="insert_match.php" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="match_date">Match Date</label>
+                    <input type="date" name="match_date" id="match_date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="full_time">Full Time</label>
+                    <input type="time" name="full_time" id="full_time" class="form-control" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="location">Location</label>
+                <input type="text" name="location" id="location" class="form-control" placeholder="Stadium or venue" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="home_team_id">Home Team ID</label>
+                    <input type="number" name="home_team_id" id="home_team_id" class="form-control" placeholder="Enter team ID" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="away_team_id">Away Team ID</label>
+                    <input type="number" name="away_team_id" id="away_team_id" class="form-control" placeholder="Enter team ID" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="referee">Referee</label>
+                <input type="text" name="referee" id="referee" class="form-control" placeholder="Referee's full name" required>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="home_score">Home Score</label>
+                    <input type="number" name="home_score" id="home_score" class="form-control" placeholder="Goals scored" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="away_score">Away Score</label>
+                    <input type="number" name="away_score" id="away_score" class="form-control" placeholder="Goals scored" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="home_penalty">Home Penalty</label>
+                    <input type="number" name="home_penalty" id="home_penalty" class="form-control" placeholder="Penalty goals (if applicable)">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="away_penalty">Away Penalty</label>
+                    <input type="number" name="away_penalty" id="away_penalty" class="form-control" placeholder="Penalty goals (if applicable)">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-plus-circle"></i> Add Match
+            </button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="match_management.php">Back to Matches</a>
+            <a href="index.html">Dashboard</a>
+            <a href="update_match.php">Update Match</a>
+            <a href="delete_match.php">Delete Match</a>
+        </div>
+        <p>&copy; 2025 Sports Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Form validation script
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            
+            form.addEventListener('submit', function(event) {
+                // Basic validation
+                const homeTeamId = document.getElementById('home_team_id').value;
+                const awayTeamId = document.getElementById('away_team_id').value;
+                
+                // Check if home and away teams are different
+                if (homeTeamId === awayTeamId) {
+                    alert("Home team and away team cannot be the same!");
+                    event.preventDefault();
+                    return false;
+                }
+                
+                // Additional validation can be added here
+            });
+        });
+    </script>
+</body>
+</html>
