@@ -1,63 +1,277 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Event</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2ecc71;
+            --secondary-dark: #27ae60;
+            --dark: #2c3e50;
+            --dark-light: #34495e;
+            --light: #ecf0f1;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #1abc9c;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
 
-<title>Input Event</title>
-<link rel="stylesheet" type="text/css" href="forms.css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .form-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .form-header img {
+            max-width: 80px;
+            margin-bottom: 15px;
+        }
+
+        .form-header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .form-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .form-body {
+            padding: 30px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 0;
+            left: 15px;
+            padding: 0 5px;
+            background-color: white;
+            color: #777;
+            font-size: 0.85rem;
+            transform: translateY(-50%);
+            transition: var(--transition);
+        }
+
+        .input-group .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .input-group select.form-control {
+            padding-right: 40px;
+            cursor: pointer;
+            background-color: white;
+        }
+
+        .input-group .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        .input-group .icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+            pointer-events: none;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: var(--border-radius);
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .btn-back {
+            margin-top: 15px;
+            text-align: center;
+            display: block;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .btn-back:hover {
+            color: var(--primary);
+        }
+
+        .form-footer {
+            background-color: #f8f9fa;
+            padding: 15px 30px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        .form-footer p {
+            color: #777;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        /* Custom dropdown arrow */
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper:after {
+            content: "\f107";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+            pointer-events: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .form-body {
+                padding: 20px;
+            }
+            
+            .form-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 12px;
+            }
+        }
+    </style>
 </head>
-<style>
-body {
-  align-items: center;
-  background-color:black;
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-}
-.form {
-  background-color: #15172b;
-  position: center;
-  border-radius: 20px;
-  box-sizing: border-box;
-
-  padding: 20px;
-  width: 320px;
-  }
-</style>
 <body>
-<form action="insert_timing.php" method="post">
-<br><br><br><br><br><br>
-
-
-
-	<div class="form">
-			 <div class="logo">
-		<img src= "logo.png">
-		</div> 	
-      <div class="subtitle" style="margin-left:90px;" >Insert Event</div>
-	  
-	  <div class="input-container ic2">
-	    <input name="match_id" id="match_id" class="input" type="number" placeholder=" " />
-        <div class="cut"></div>
-        <label for="match_id" class="placeholder">Match ID</>
-      </div>
-      <div class="input-container ic2">
-	    <input name="event" id="event" class="input" type="text" placeholder=" " />
-        <div class="cut"></div>
-        <label for="event" class="placeholder">Event</>
-      </div>
-	  <div class="input-container ic2">
-	    <input name="player_name" id="player_name" class="input" type="text" placeholder=" " />
-        <div class="cut"></div>
-        <label for="player_name" class="placeholder">Player Name</>
-      </div>
-      <div class="input-container ic2">
-	    <input name="time" id="time" class="input" type="time" placeholder=" " />
-        <div class="cut"></div>
-        <label for="time" class="placeholder">Time</>
-      </div>
-	  <button type="text" class="submit" value="submit">Add</button>
+    <div class="container">
+        <form action="insert_timing.php" method="post">
+            <div class="form-card">
+                <div class="form-header">
+                  
+                    <h1>Add New Event</h1>
+                    <p>Record match events and timing details</p>
+                </div>
+                
+                <div class="form-body">
+                    <div class="input-group">
+                        <label for="match_id">Match ID</label>
+                        <input type="number" id="match_id" name="match_id" class="form-control" required>
+                        <span class="icon"><i class="fas fa-hashtag"></i></span>
+                    </div>
+                    
+                    <div class="input-group select-wrapper">
+                        <label for="event">Event Type</label>
+                        <select id="event" name="event" class="form-control" required>
+                            <option value="" selected disabled>Select event type</option>
+                            <option value="Goal">Goal</option>
+                            <option value="Yellow Card">Yellow Card</option>
+                            <option value="Red Card">Red Card</option>
+                            <option value="Substitution">Substitution</option>
+                            <option value="Penalty">Penalty</option>
+                            <option value="Corner">Corner</option>
+                            <option value="Free Kick">Free Kick</option>
+                            <option value="Injury">Injury</option>
+                            <option value="Offside">Offside</option>
+                            <option value="Own Goal">Own Goal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="player_name">Player Name</label>
+                        <input type="text" id="player_name" name="player_name" class="form-control" required>
+                        <span class="icon"><i class="fas fa-user"></i></span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="time">Time</label>
+                        <input type="time" id="time" name="time" class="form-control" required>
+                        <span class="icon"><i class="fas fa-clock"></i></span>
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-plus-circle"></i> Add Event
+                    </button>
+                    
+                    <a href="match.php" class="btn-back">
+                        <i class="fas fa-arrow-left"></i> Back to Matches
+                    </a>
+                </div>
+                
+                <div class="form-footer">
+                    <p>&copy; 2025 Sports Management System. All rights reserved.</p>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
 </body>
-
 </html>

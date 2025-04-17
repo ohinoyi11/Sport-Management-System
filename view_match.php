@@ -567,7 +567,7 @@
 
     <!-- Header -->
     <header>
-        <a href="manage_matches.php" class="back-button">
+        <a href="match.php" class="back-button">
             <i class="fas fa-arrow-left"></i> Back to Matches
         </a>
         <h1>Match Details</h1>

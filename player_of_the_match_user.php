@@ -94,6 +94,12 @@
             padding: 10px 15px;
             border-radius: 5px;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-list li a i {
+            margin-right: 8px;
         }
         
         .nav-list li a:hover {
@@ -193,6 +199,60 @@
             color: #666;
         }
         
+        /* Stats card */
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            width: 230px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stat-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .stat-body {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #777;
+            font-size: 14px;
+        }
+        
         /* Footer */
         .footer {
             background-color: var(--secondary-color);
@@ -205,6 +265,24 @@
         .footer p {
             margin: 0;
             font-size: 14px;
+        }
+        
+        .footer-links {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
         }
         
         /* Mobile menu button */
@@ -272,6 +350,15 @@
                 padding: 12px 10px;
                 font-size: 14px;
             }
+            
+            .stats-container {
+                padding: 0 15px;
+            }
+            
+            .stat-card {
+                width: calc(50% - 10px);
+                min-width: 150px;
+            }
         }
     </style>
 </head>
@@ -291,7 +378,7 @@
         </button>
         
         <ul class="nav-list" id="navList">
-            <li><a href="adminhome.php"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="userhome.php"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="player_user.php"><i class="fas fa-user-alt"></i> Players</a></li>
             <li><a href="match_user.php"><i class="fas fa-futbol"></i> Matches</a></li>
             <li><a href="team_user.php"><i class="fas fa-users"></i> Teams</a></li>
@@ -299,16 +386,68 @@
     </nav>
 
     <section class="page-header">
-        <h1>Player of the Match</h1>
-        <p>Recognizing outstanding performances in each match</p>
+        <h1><i class="fas fa-award"></i> Player of the Match</h1>
+        <p>Recognizing outstanding performances and top goal scorers in each match</p>
     </section>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-header">
+                <h3><i class="fas fa-chart-line"></i> Top Stats</h3>
+            </div>
+            <div class="stat-body">
+                <div class="stat-number" id="totalPotm">
+                    <?php
+                    // Database connection (reused from below)
+                    $db = mysqli_connect("localhost", "root", "", "fmdb");
+                    if ($db) {
+                        $countSql = "SELECT COUNT(DISTINCT match_id) as total FROM active_player WHERE goals_scored > 0";
+                        $countResult = mysqli_query($db, $countSql);
+                        if ($countResult && $row = mysqli_fetch_assoc($countResult)) {
+                            echo $row['total'];
+                        } else {
+                            echo "0";
+                        }
+                    } else {
+                        echo "N/A";
+                    }
+                    ?>
+                </div>
+                <div class="stat-label">Matches with Stars</div>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-header">
+                <h3><i class="fas fa-futbol"></i> Goal Stats</h3>
+            </div>
+            <div class="stat-body">
+                <div class="stat-number" id="maxGoals">
+                    <?php
+                    if ($db) {
+                        $maxSql = "SELECT MAX(goals_scored) as max_goals FROM active_player";
+                        $maxResult = mysqli_query($db, $maxSql);
+                        if ($maxResult && $row = mysqli_fetch_assoc($maxResult)) {
+                            echo $row['max_goals'];
+                        } else {
+                            echo "0";
+                        }
+                    } else {
+                        echo "N/A";
+                    }
+                    ?>
+                </div>
+                <div class="stat-label">Max Goals in a Match</div>
+            </div>
+        </div>
+    </div>
 
     <div class="table-container">
         <table class="styled-table">
             <thead>
                 <tr>
-                    <th>Player of the Match</th>
-                    <th>Match ID</th>
+                    <th><i class="fas fa-user-circle"></i> Player of the Match</th>
+                    <th><i class="fas fa-hashtag"></i> Match ID</th>
                 </tr>
             </thead>
             <tbody>
@@ -324,26 +463,34 @@
 
                 // Check connection
                 if (!$db) {
-                    die("<tr><td colspan='2'>Connection failed: " . mysqli_connect_error() . "</td></tr>");
+                    die("<tr><td colspan='2' style='color: red;'><i class='fas fa-exclamation-triangle'></i> Connection failed: " . mysqli_connect_error() . "</td></tr>");
                 }
 
                 // Query to fetch player of the match based on max goals
-                $sql = "SELECT player_name, match_id FROM active_player WHERE goals_scored = (SELECT MAX(goals_scored) FROM active_player) GROUP BY match_id";
+                $sql = "SELECT player_name, match_id, goals_scored FROM active_player 
+                       WHERE (match_id, goals_scored) IN 
+                       (SELECT match_id, MAX(goals_scored) 
+                        FROM active_player 
+                        GROUP BY match_id) 
+                       ORDER BY goals_scored DESC";
 
                 // Execute the query and check for errors
                 if ($result = mysqli_query($db, $sql)) {
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>
-                                <td class='player-name'><i class='fas fa-medal'></i> " . $row["player_name"] . "</td>
-                                <td class='match-id'>" . $row["match_id"] . "</td>
+                                <td class='player-name'><i class='fas fa-medal'></i> " . $row["player_name"] . 
+                                " <span style='color: " . ($row["goals_scored"] > 1 ? "var(--success-color)" : "var(--warning-color)") . 
+                                "; font-size: 14px; margin-left: 8px;'>(" . $row["goals_scored"] . " goal" . 
+                                ($row["goals_scored"] > 1 ? "s" : "") . ")</span></td>
+                                <td class='match-id'><i class='fas fa-gamepad'></i> " . $row["match_id"] . "</td>
                                 </tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='2'>No records found</td></tr>";
+                        echo "<tr><td colspan='2' style='text-align: center;'><i class='fas fa-info-circle'></i> No records found</td></tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='2'>Error executing query: " . mysqli_error($db) . "</td></tr>";
+                    echo "<tr><td colspan='2' style='color: red; text-align: center;'><i class='fas fa-exclamation-triangle'></i> Error executing query: " . mysqli_error($db) . "</td></tr>";
                 }
 
                 // Close connection
@@ -355,6 +502,11 @@
 
     <footer class="footer">
         <p>Copyright © 2025 CUSTECH Sport Team Management • All Rights Reserved</p>
+        <div class="footer-links">
+            <a href="#"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="#"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+        </div>
     </footer>
 
     <script>
@@ -373,6 +525,30 @@
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
             }
+        });
+        
+        // Add animation to stat numbers
+        document.addEventListener('DOMContentLoaded', function() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(number => {
+                const finalValue = parseInt(number.textContent.trim());
+                if (!isNaN(finalValue)) {
+                    let currentValue = 0;
+                    const duration = 1500;
+                    const increment = Math.ceil(finalValue / (duration / 50));
+                    
+                    const timer = setInterval(() => {
+                        currentValue += increment;
+                        if (currentValue >= finalValue) {
+                            number.textContent = finalValue;
+                            clearInterval(timer);
+                        } else {
+                            number.textContent = currentValue;
+                        }
+                    }, 50);
+                }
+            });
         });
     </script>
 </body>

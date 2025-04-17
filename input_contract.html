@@ -1,72 +1,386 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Contract</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2ecc71;
+            --secondary-dark: #27ae60;
+            --dark: #2c3e50;
+            --dark-light: #34495e;
+            --light: #ecf0f1;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #1abc9c;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
 
-<title>Input Contract</title>
-<link rel="stylesheet" type="text/css" href="forms.css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* Navbar */
+        nav {
+            background: var(--dark-light);
+            padding: 12px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            margin: 0 12px;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        nav a:hover {
+            background-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        nav i {
+            font-size: 14px;
+        }
+
+        /* Main container */
+        .container {
+            width: 95%;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: white;
+            box-shadow: 0 0 20px var(--shadow);
+            border-radius: var(--border-radius);
+            flex-grow: 1;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 15px;
+        }
+
+        .form-header h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            max-height: 80px;
+            border-radius: var(--border-radius);
+        }
+
+        /* Form styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: var(--transition);
+            font-size: 1rem;
+            width: 100%;
+            margin-top: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 12px rgba(52, 152, 219, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .form-actions .btn {
+            width: 48%;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--light) 0%, #d6dbdf 100%);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 5px 10px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        footer a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav a {
+                margin: 0 5px;
+                padding: 6px 10px;
+            }
+            
+            .container {
+                padding: 15px;
+                width: 100%;
+                margin: 15px auto;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .form-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
-<style>
-body {
-  align-items: center;
-  background-color:black;
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-}
-.form {
-  background-color: #15172b;
-  position: center;
-  border-radius: 20px;
-  box-sizing: border-box;
-
-  padding: 20px;
-  width: 320px;
-  }
-</style>
 <body>
-<form action="insert_contract.php" method="post">
-<br><br><br><br><br><br>
+    <!-- Header -->
+    <header>
+        <a href="contract.php" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Contracts
+        </a>
+        <h1>Input Contract</h1>
+        <p>Add a new player contract to the system</p>
+    </header>
 
-	<div class="form">
-			 <div class="logo">
-		<img src= "logo.png">
-		</div> 	
-      <div class="subtitle">Insert New Contract </div>
+    <!-- Navbar -->
+    <nav>
+        <a href="contract.php"><i class="fas fa-file-contract"></i> Contracts</a>
+        <a href="player.php"><i class="fas fa-user-alt"></i> Players</a>
+        <a href="adminhome.php"><i class="fas fa-home"></i> Dashboard</a>
+    </nav>
 
-	  
-      <div class="input-container ic1">
-        <input name="player_id" id="player_id" class="input" type="number" placeholder=" " />
-        <div class="cut"></div>
-        <label for="player_id" class="placeholder">Player ID</label>
-      </div>
-      <div class="input-container ic2">
-        <input name="team_id" id="team_id" class="input" type="number" placeholder=" " />
-        <div class="cut"></div>
-        <label for="team_id" class="placeholder">Team ID</label>
-      </div>
-      <div class="input-container ic2">
-        <input name="previous_team_id" id="previous_team_id" class="input" type="number" placeholder=" " />
-        <div class="cut "></div>
-        <label for="previous_team_id" class="placeholder">Previous Team ID</>
-      </div>
-      <div class="input-container ic2">
-	    <input name="salary" id="salary" class="input" type="number" placeholder=" " />
-        <div class="cut"></div>
-        <label for="salary" class="placeholder">Salary</>
-      </div>
-      <div class="input-container ic2">
-	    <input name="signed_date" id="signed_date" class="input" type="date" placeholder=" " />
-        <div class="cut"></div>
-        <label for="signed_date" class="placeholder">Signed Date</>
-      </div>
-      <div class="input-container ic2">
-	    <input name="expiry_date" id="expiry_date" class="input" type="date" placeholder=" " />
-        <div class="cut"></div>
-        <label for="expiry_date" class="placeholder">Expiry Date</>
-      </div>
-      <button type="text" class="submit" value="submit">Add</button>
+    <!-- Main content -->
+    <div class="container">
+        
+        <div class="form-header">
+            <h2><i class="fas fa-file-signature"></i> Add New Contract</h2>
+        </div>
+        
+        <form action="insert_contract.php" method="post">
+            <div class="form-group">
+                <label for="player_id">Player ID</label>
+                <input type="number" name="player_id" id="player_id" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="team_id">Team ID</label>
+                <input type="number" name="team_id" id="team_id" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="previous_team_id">Previous Team ID</label>
+                <input type="number" name="previous_team_id" id="previous_team_id" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="salary">Salary</label>
+                <input type="number" name="salary" id="salary" class="form-control" step="0.01" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="signed_date">Signed Date</label>
+                <input type="date" name="signed_date" id="signed_date" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="expiry_date">Expiry Date</label>
+                <input type="date" name="expiry_date" id="expiry_date" class="form-control" required>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Add Contract
+                </button>
+                <button type="reset" class="btn btn-secondary">
+                    <i class="fas fa-undo"></i> Reset
+                </button>
+            </div>
+        </form>
     </div>
-</form>
-</body>
 
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="contract.php">Contracts</a>
+            <a href="player.php">Players</a>
+            <a href="adminhome.php">Dashboard</a>
+        </div>
+        <p>&copy; 2025 Sports Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Set default dates
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set today's date as default for signed date
+            const today = new Date();
+            const signedDateField = document.getElementById('signed_date');
+            signedDateField.valueAsDate = today;
+            
+            // Set default expiry date to 1 year from now
+            const nextYear = new Date();
+            nextYear.setFullYear(today.getFullYear() + 1);
+            const expiryDateField = document.getElementById('expiry_date');
+            expiryDateField.valueAsDate = nextYear;
+        });
+    </script>
+</body>
 </html>

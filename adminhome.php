@@ -384,17 +384,7 @@
             </div>
         </div>
         
-        <div class="menu-item">
-            <div class="item-image">
-                <img src="./images/players/player-1.png" alt="Player of the Match">
-                <div class="overlay"></div>
-            </div>
-            <div class="item-content">
-                <h3>Player of the Match</h3>
-                <p>Select outstanding performers and manage awards and recognitions.</p>
-                <a href="player_of_the_match.php" class="btn"><i class="fas fa-medal"></i> Manage Awards</a>
-            </div>
-        </div>
+        
     </div>
 
     <footer>

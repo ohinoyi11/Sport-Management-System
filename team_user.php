@@ -525,8 +525,11 @@
             <i class="fas fa-arrow-left"></i> Dashboard
         </a>
         <h1>Teams Management</h1>
-        <p>View football teams</p>
+        <p>View, add, update, and manage football teams</p>
     </header>
+
+    <!-- Navbar -->
+  
 
     <!-- Main content -->
     <div class="container">
@@ -579,7 +582,7 @@
                         </div>
                     </div>
                 </div>
-            
+              
             </div>
         </div>
 
@@ -611,7 +614,7 @@
                         <button class="card-btn view-btn" onclick="viewTeam(<?php echo $row["team_id"]; ?>)">
                             <i class="fas fa-eye"></i> View
                         </button>
-                        
+                    
                     </div>
                     
                     <!-- Hidden div to store full team data -->
@@ -638,6 +641,10 @@
 
     <!-- Footer -->
     <footer class="footer">
+        <div class="footer-links">
+         
+            <a href="userhome.php"><i class="fas fa-home"></i> Back to Dashboard</a>
+        </div>
         <p>&copy; 2025 Sports Management System. All rights reserved.</p>
     </footer>
 

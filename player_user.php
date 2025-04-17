@@ -690,7 +690,7 @@
         function viewContract() {
             const playerId = document.getElementById('playerid').value;
             if (playerId) {
-                window.location.href = 'contract.php?playerid=' + playerId;
+                window.location.href = 'contract_user.php?playerid=' + playerId;
             } else {
                 alert('Please enter a Player ID to view contract');
             }

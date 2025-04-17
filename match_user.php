@@ -399,21 +399,21 @@
     <div class="container">
         <!-- Search Forms -->
         <div class="search-forms">
-            <form action="active_player.php" method="POST" class="search-form">
+            <form action="active_player_user.php" method="POST" class="search-form">
                 <input type="number" name="activeplayer" placeholder="Match ID" required>
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-users"></i> Search Active Players
                 </button>
             </form>
 
-            <form action="benched_player.php" method="POST" class="search-form">
+            <form action="benched_player_user.php" method="POST" class="search-form">
                 <input type="number" name="benchedplayer" placeholder="Match ID" required>
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-bench-sitting"></i> Search Benched Players
                 </button>
             </form>
 
-            <form action="timing.php" method="POST" class="search-form">
+            <form action="timing_user.php" method="POST" class="search-form">
                 <input type="number" name="timing" placeholder="Match ID" required>
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-stopwatch"></i> Search Events
